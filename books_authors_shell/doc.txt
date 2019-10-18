@@ -1,0 +1,367 @@
+
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py makemigrations
+Migrations for 'baseapp':
+  apps\baseapp\migrations\0001_initial.py:
+    - Create model Book
+    - Create model Publisher
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, baseapp, contenttypes, sessions
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying baseapp.0001_initial... OK
+  Applying sessions.0001_initial... OK
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py shell
+Python 3.7.3 (v3.7.3:ef4ec6ed12, Mar 25 2019, 21:26:53) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from apps.baseapp.models import *
+>>> Book.objects.create(title = "C Sharp")
+<Book: Book object>
+>>> Book.objects.create(title = "Java")
+<Book: Book object>
+>>> Book.objects.create(title = "Python")
+<Book: Book object>
+>>> Book.objects.create(title = "PHP")
+<Book: Book object>
+>>> Book.objects.create(title = "Ruby")
+<Book: Book object>
+>>> Author.objects.create(title = "Jane Austen")
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Author' is not defined
+>>> Author.objects.create(name = "Jane Austen")
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'Author' is not defined
+>>> exit()
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py makemigrations
+Migrations for 'baseapp':
+  apps\baseapp\migrations\0002_auto_20190711_1504.py:
+    - Create model Author
+    - Remove field books from publisher
+    - Delete model Publisher
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, baseapp, contenttypes, sessions
+Running migrations:
+  Rendering model states... DONE
+  Applying baseapp.0002_auto_20190711_1504... OK
+The following content types are stale and need to be deleted:
+
+    baseapp | publisher
+
+Any objects related to these content types by a foreign key will also
+be deleted. Are you sure you want to delete these content types?
+If you're unsure, answer 'no'.
+
+    Type 'yes' to continue, or 'no' to cancel: yes
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py shell
+Python 3.7.3 (v3.7.3:ef4ec6ed12, Mar 25 2019, 21:26:53) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from apps.baseapp.models import *
+>>> for book in Book.objects.all():
+...     print(book.title)
+...
+C Sharp
+Java
+Python
+PHP
+Ruby
+>>> Author.objects.create(first_name = "Jane", last_name = "Austen")
+<Author: Author object>
+>>> Author.objects.create(first_name = "Emily", last_name = "Dickinson")
+<Author: Author object>
+>>> Author.objects.create(first_name = "Fyodor", last_name = "Dostoevsky")
+<Author: Author object>
+>>> Author.objects.create(first_name = "William", last_name = "Shakespeare")
+<Author: Author object>
+>>> Author.objects.create(first_name = "Lau", last_name = "Tzu")
+<Author: Author object>
+>>> exit()
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>
+
+  File "<frozen importlib._bootstrap_external>", line 724, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 860, in get_code
+  File "<frozen importlib._bootstrap_external>", line 791, in source_to_code
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell\apps\baseapp\models.py", line 5
+    created_at = models.DateTimeField(auto_now_add=True)
+                                                       ^
+IndentationError: unindent does not match any outer indentation level
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py makemigrations
+You are trying to add a non-nullable field 'notes' to author without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 2
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py makemigrations
+You are trying to add a non-nullable field 'notes' to author without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime and django.utils.timezone modules are available, so you can do e.g. timezone.now
+Type 'exit' to exit this prompt
+>>> ""
+Migrations for 'baseapp':
+  apps\baseapp\migrations\0003_author_notes.py:
+    - Add field notes to author
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py shell
+Python 3.7.3 (v3.7.3:ef4ec6ed12, Mar 25 2019, 21:26:53) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> >>> from apps.your_app_name_here.models import *
+  File "<console>", line 1
+    >>> from apps.your_app_name_here.models import *
+     ^
+SyntaxError: invalid syntax
+>>> from apps.your_app_name_here.models import *
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ModuleNotFoundError: No module named 'apps.your_app_name_here'
+>>> from apps.baseapp.models import *
+>>> book1 = Book.objects.get(title = "C Sharp")
+>>> book1.title = "C#"
+>>> book1.save()
+>>> for book in Book.objects.all():
+...     print(title)
+...
+Traceback (most recent call last):
+  File "<console>", line 2, in <module>
+NameError: name 'title' is not defined
+>>> for book in Book.objects.all():
+...     print(book.title)
+...
+C#
+Java
+Python
+PHP
+Ruby
+>>> author4 = Author.objects.get(id="4")
+Traceback (most recent call last):
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\sqlite3\base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+sqlite3.OperationalError: no such column: baseapp_author.notes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\query.py", line 379, in get
+    num = len(clone)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\query.py", line 238, in __len__
+    self._fetch_all()
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\query.py", line 1085, in _fetch_all
+    self._result_cache = list(self.iterator())
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\query.py", line 54, in __iter__
+    results = compiler.execute_sql()
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\sql\compiler.py", line 835, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\utils\six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\sqlite3\base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+django.db.utils.OperationalError: no such column: baseapp_author.notes
+>>> author4 = Author.objects.get(id=4
+... author4 = Author.objects.get(id=4)
+  File "<console>", line 2
+    author4 = Author.objects.get(id=4)
+          ^
+SyntaxError: invalid syntax
+>>> author4 = Author.objects.get(id=4)
+Traceback (most recent call last):
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\sqlite3\base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+sqlite3.OperationalError: no such column: baseapp_author.notes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\query.py", line 379, in get
+    num = len(clone)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\query.py", line 238, in __len__
+    self._fetch_all()
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\query.py", line 1085, in _fetch_all
+    self._result_cache = list(self.iterator())
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\query.py", line 54, in __iter__
+    results = compiler.execute_sql()
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\models\sql\compiler.py", line 835, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\utils\six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\djangoEnv\lib\site-packages\django\db\backends\sqlite3\base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+django.db.utils.OperationalError: no such column: baseapp_author.notes
+>>> exit()
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, baseapp, contenttypes, sessions
+Running migrations:
+  Rendering model states... DONE
+  Applying baseapp.0003_author_notes... OK
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py shell
+Python 3.7.3 (v3.7.3:ef4ec6ed12, Mar 25 2019, 21:26:53) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from apps.baseapp.models import *
+>>> author4 = Author.objects.get(id=4)
+>>> author4
+<Author: Author object>
+>>> exit()
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py makemigrations
+No changes detected
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, baseapp, contenttypes, sessions
+Running migrations:
+  No migrations to apply.
+
+(djangoEnv) C:\Users\eleah\Documents\coding_dojo\Python_Stack\Django\Django_ORM\books_authors_shell>python manage.py shell
+Python 3.7.3 (v3.7.3:ef4ec6ed12, Mar 25 2019, 21:26:53) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from app.baseapp.models import *
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ModuleNotFoundError: No module named 'app'
+>>> from apps.baseapp.models import *
+>>> author4 = Author.objects.get(id=4)
+>>> author4
+<Author: William, Shakespeare, >
+>>> for author in Author.objects.all():
+...     print(author.first_name, author.last_name)
+...
+Jane Austen
+Emily Dickinson
+Fyodor Dostoevsky
+William Shakespeare
+Lau Tzu
+>>> author4.first_name = "Bill"
+>>> for author in Author.objects.all():
+...     print(author.first_name, author.last_name)
+...
+Jane Austen
+Emily Dickinson
+Fyodor Dostoevsky
+William Shakespeare
+Lau Tzu
+>>> author4.first_name = "Bill"
+>>> author4.save()
+>>> for author in Author.objects.all():
+...     print(author.first_name, author.last_name)
+...
+Jane Austen
+Emily Dickinson
+Fyodor Dostoevsky
+Bill Shakespeare
+Lau Tzu
+>>> book1 = Book.objects.get(id=1)
+>>> book2 = Book.objects.get(id=2)
+>>> author1 = Author.objects.get(id=1)
+>>> author1.books.all()
+<QuerySet []>
+>>> author1.books.add(book1)
+>>> author1.books.all()
+<QuerySet [<Book: C#>]>
+>>> author1.books.add(book2)
+>>> author1.books.all()
+<QuerySet [<Book: C#>, <Book: Java>]>
+>>> author2 = Author.objects.get(id=2)
+>>> author3 = Author.objects.get(id=3)
+>>> author2.books.add(book1)
+>>> author2.books.add(book2)
+>>> author2.books.add(book3)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'book3' is not defined
+>>> book3 = Book.objects.get(id=3)
+>>> book4 = Book.objects.get(id=4)
+>>> book5 = Book.objects.get(id=5)
+>>> author2.books.add(book3)
+>>> author2.books.all90
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'ManyRelatedManager' object has no attribute 'all90'
+>>> author2.books.all()
+<QuerySet [<Book: C#>, <Book: Java>, <Book: Python>]>
+>>> author4 = Author.objects.get(id=4)
+>>> author4 = Author.objects.get(id=4)
+>>> author5 = Author.objects.get(id=5)
+>>> author3.books.add(book1, book2, book3, book4)
+>>> author3.books.all()
+<QuerySet [<Book: C#>, <Book: Java>, <Book: Python>, <Book: PHP>]>
+>>> author4.books.add(book1, book2, book3, book4, book5)
+>>> author4.books.all
+<bound method BaseManager.all of <django.db.models.fields.related_descriptors.create_forward_many_to_many_manager.<locals>.ManyRelatedManager object at 0x00337C10>>
+>>> author4.books.all()
+<QuerySet [<Book: C#>, <Book: Java>, <Book: Python>, <Book: PHP>, <Book: Ruby>]>
+>>> book3.authors.all
+<bound method BaseManager.all of <django.db.models.fields.related_descriptors.create_forward_many_to_many_manager.<locals>.ManyRelatedManager object at 0x00343650>>
+>>> book3.authors.all()
+<QuerySet [<Author: Emily, Dickinson, >, <Author: Fyodor, Dostoevsky, >, <Author: Bill, Shakespeare, >]>
+>>> book3.authors.first()
+<Author: Emily, Dickinson, >
+>>> author5.books.add(book2)
+>>> author5.books.all()
+<QuerySet [<Book: Java>]>
+>>> author3.books.all()
+<QuerySet [<Book: C#>, <Book: Java>, <Book: Python>, <Book: PHP>]>
+>>> author5.books.all()
+<QuerySet [<Book: Java>]>
+>>> book5.authors.last()
+<Author: Bill, Shakespeare, >
+>>>

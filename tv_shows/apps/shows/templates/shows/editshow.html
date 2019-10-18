@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Show</title>
+</head>
+<body>
+    <div class="container">
+        <form action="saveEdit" method="post">
+            {% csrf_token %}
+        
+            <h2>Edit {{shows.title}}</h2>
+            {% for message in messages %}
+                <ul>
+                    <li> <div id="msg">{{message}}</div></li>
+                </ul>
+            {% endfor %}
+            <a href="/shows">Go back to Shows</a>
+            <p>Title: <input type="text" name="newTitle" value="{{shows.title}}"></p>
+            <p>Network: <input type="text" name="newNetwork" value="{{shows.network}}"></p>
+            <p>Release Date: <input type="date" name="newRelDate" value="{{shows.release_date}}"></p>
+            <p>Description: <input type="textarea" name="newDesc" value="{{shows.desc}}"></p>
+            <input type="submit" value="Edit" name="saveEdit">
+        </form>
+    </div>
+</body>
+</html>

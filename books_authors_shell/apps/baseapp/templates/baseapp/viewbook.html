@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books & Authors</title>
+</head>
+<body>
+    <div class="container">
+        <div class="thisBook">
+            <h1>{{thisBook.title}}</h1>
+            <h2>ID: {{thisBook.id}}</h2>
+            <h2>Description: {{thisBook.desc}}</h2>
+        </div>
+        <div class="authorList">
+            <h2>Authors:</h2>
+            <ul>
+                {% for a in thisBook.authors.all %}
+                <li>{{a.first_name}} {{a.last_name}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="addform">
+            <form action="/addlAuth" method="post">
+                {% csrf_token %}
+                <select name="extraAuth">
+                    {% for a in authors %}
+                    
+                    <option value="{{Author.first_name}} {{Author.last_name}}">{{a.first_name}} {{a.last_name}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Add" name="addlAuth">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
